@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to top, #000000, #1a1a1a);
+  color: white;
+}
+input, select, button {
+  font-size: 1rem;
+}
