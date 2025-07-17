@@ -8,8 +8,6 @@ function formatNumber(num) {
   });
 }
 
-
-
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [name, setName] = useState("");
@@ -19,7 +17,10 @@ function App() {
   const [currentMonthOffset, setCurrentMonthOffset] = useState(0);
 
   const now = new Date();
-  const current = new Date(now.getFullYear(), now.getMonth() + currentMonthOffset);
+  const current = new Date(
+    now.getFullYear(),
+    now.getMonth() + currentMonthOffset
+  );
   const monthYear = current.toLocaleString("default", {
     month: "long",
     year: "numeric",
@@ -58,11 +59,12 @@ function App() {
 
   const visibleExpenses = expenses.filter((e) => {
     const d = new Date(e.date);
-    return d.getMonth() === current.getMonth() && d.getFullYear() === current.getFullYear();
+    return (
+      d.getMonth() === current.getMonth() && d.getFullYear() === current.getFullYear()
+    );
   });
 
-  const totalNeeded = visibleExpenses.reduce((sum, e) => sum + e.amount, 0);
-
+  // Calculate monthly savings needed per item
   const monthlySaves = expenses.map((e) => {
     const targetDate = new Date(e.date);
     const nowDate = new Date();
@@ -72,6 +74,9 @@ function App() {
     const savePerMonth = months > 0 ? e.amount / months : e.amount;
     return { ...e, savePerMonth };
   });
+
+  // ✅ Fix: Calculate total from monthly savings
+  const totalNeeded = monthlySaves.reduce((sum, e) => sum + e.savePerMonth, 0);
 
   return (
     <div className="container">
@@ -84,21 +89,20 @@ function App() {
           onChange={(e) => setName(e.target.value)}
         />
         <input
-  type="text"
-  placeholder="Amount"
-  value={
-    amount === ''
-      ? ''
-      : Number(amount.replace(/,/g, '')).toLocaleString()
-  }
-  onChange={(e) => {
-    const raw = e.target.value.replace(/,/g, '');
-    if (!isNaN(raw)) {
-      setAmount(raw);
-    }
-  }}
-/>
-
+          type="text"
+          placeholder="Amount"
+          value={
+            amount === ""
+              ? ""
+              : Number(amount.replace(/,/g, "")).toLocaleString()
+          }
+          onChange={(e) => {
+            const raw = e.target.value.replace(/,/g, "");
+            if (!isNaN(raw)) {
+              setAmount(raw);
+            }
+          }}
+        />
         <input
           type="date"
           value={date}
@@ -106,8 +110,6 @@ function App() {
         />
         <button type="submit">{editingIndex !== null ? "Update" : "Add"}</button>
       </form>
-
-      
 
       <table>
         <thead>
@@ -127,8 +129,12 @@ function App() {
               <td>{new Date(e.date).toLocaleDateString()}</td>
               <td>₱{formatNumber(e.savePerMonth)}</td>
               <td>
-                <button onClick={() => handleEdit(index)} className="icon-btn">✏️</button>
-                <button onClick={() => handleDelete(index)} className="icon-btn">❌</button>
+                <button onClick={() => handleEdit(index)} className="icon-btn">
+                  ✏️
+                </button>
+                <button onClick={() => handleDelete(index)} className="icon-btn">
+                  ❌
+                </button>
               </td>
             </tr>
           ))}
