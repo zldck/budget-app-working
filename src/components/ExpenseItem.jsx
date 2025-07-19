@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 export default function ExpenseItem({ name, amount, date, onEdit, onDelete, monthlySaving }) {
   const formattedAmount = amount.toLocaleString("en-PH", {
@@ -12,7 +13,20 @@ export default function ExpenseItem({ name, amount, date, onEdit, onDelete, mont
   });
 
   return (
-    <div className="expense-item">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3 }}
+      className="expense-item"
+      style={{
+        background: "rgba(255, 255, 255, 0.02)",
+        marginBottom: "1rem",
+        padding: "0.75rem",
+        borderRadius: "8px",
+        border: "1px solid #333",
+      }}
+    >
       <div className="expense-info">
         <strong>{name}</strong>
         <span>₱{formattedAmount}</span>
@@ -25,6 +39,6 @@ export default function ExpenseItem({ name, amount, date, onEdit, onDelete, mont
         <button onClick={onEdit} className="icon-btn">✏️</button>
         <button onClick={onDelete} className="icon-btn">❌</button>
       </div>
-    </div>
+    </motion.div>
   );
 }

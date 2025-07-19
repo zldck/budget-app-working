@@ -6,21 +6,35 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "postinstall": "chmod +x node_modules/.bin/vite"
-
+    "preview": "vite preview"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "firebase": "^12.0.0",
     "framer-motion": "^12.23.6",
     "react": "^18.2.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11",
     "vite": "^5.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zldck/budget-app-working.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zldck/budget-app-working/issues"
+  },
+  "homepage": "https://github.com/zldck/budget-app-working#readme"
 }
